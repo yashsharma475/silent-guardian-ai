@@ -1,0 +1,7 @@
+{
+  "name": "Silent Guardian AI",
+  "description": "AI-Powered Women Safety & Crime Prevention Platform prototype with multi-signal threat detection, silent SOS, live location sharing, guardian response, and SHA-256 evidence integrity.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
