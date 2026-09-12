@@ -1,4 +1,4 @@
-import { SafetySignals, RiskCalculation, RiskLevel } from '../src/types.js';
+import { SafetySignals, RiskCalculation, RiskLevel } from './types.js';
 
 /**
  * Prototype Explainable Risk Engine

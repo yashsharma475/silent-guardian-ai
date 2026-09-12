@@ -1,0 +1,24 @@
+services:
+  # 1. Node.js Express REST API Backend
+  - type: web
+    name: silent-guardian-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+
+  # 2. Python FastAPI AI Risk Engine
+  - type: web
+    name: silent-guardian-ai-engine
+    env: python
+    rootDir: ai-engine
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn risk_engine:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ENVIRONMENT
+        value: production

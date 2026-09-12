@@ -9,7 +9,9 @@ import {
   PrivacySettings
 } from '../types.js';
 
-const API_BASE = '/api';
+// In production (Vercel), VITE_API_URL points to the deployed backend (e.g. Render).
+// In development, it defaults to '/api' which is proxied by Vite to the local backend.
+const API_BASE = ((import.meta.env.VITE_API_URL || '').replace(/\/+$/, '')) + '/api';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {

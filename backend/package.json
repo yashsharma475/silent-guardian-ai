@@ -1,0 +1,25 @@
+{
+  "name": "silent-guardian-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Silent Guardian AI - REST API Backend Service",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "silent-guardian-ai": "file:.."
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2"
+  }
+}

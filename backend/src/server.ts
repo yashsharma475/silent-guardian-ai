@@ -1,13 +1,32 @@
 import express, { Request, Response } from 'express';
-import path from 'path';
-import { createServer as createViteServer } from 'vite';
-import { store } from './server/store.js';
-import { calculateRisk } from './server/riskEngine.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { store } from './store.js';
+import { calculateRisk } from './riskEngine.js';
+
+dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 5000;
+
+// Enable Cross-Origin Resource Sharing (CORS) for Vercel and local frontend
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
+
+// Root health check
+app.get('/', (req: Request, res: Response) => {
+  res.json({
+    service: 'Silent Guardian AI - REST API Backend',
+    status: 'online',
+    version: '1.0.0-hackathon',
+    docs: '/api/health'
+  });
+});
 
 // API Routes
 app.get('/api/health', (req: Request, res: Response) => {
@@ -15,7 +34,7 @@ app.get('/api/health', (req: Request, res: Response) => {
     success: true,
     status: 'online',
     timestamp: new Date().toISOString(),
-    service: 'Silent Guardian AI Prototype Core',
+    service: 'Silent Guardian AI Core API',
     version: '1.0.0-hackathon'
   });
 });
@@ -319,25 +338,6 @@ app.post('/api/demo/reset', (req: Request, res: Response) => {
   });
 });
 
-// Start Server with Vite Middleware or Static Assets
-async function startServer() {
-  if (process.env.NODE_ENV !== 'production') {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: 'spa'
-    });
-    app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
-  }
-
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🛡️ Silent Guardian AI core server running on http://0.0.0.0:${PORT}`);
-  });
-}
-
-startServer();
+app.listen(Number(PORT), '0.0.0.0', () => {
+  console.log(`🛡️ Silent Guardian AI Backend API listening on port ${PORT}`);
+});

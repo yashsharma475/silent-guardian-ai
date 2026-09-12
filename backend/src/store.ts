@@ -9,7 +9,7 @@ import {
   SafetySignals,
   SystemStats,
   PrivacySettings
-} from '../src/types.js';
+} from './types.js';
 import { calculateRisk } from './riskEngine.js';
 
 export function generateSha256(content: string): string {
@@ -636,7 +636,6 @@ class MemoryStore {
 
     // Calculate risk
     const assessment = calculateRisk(this.data.signals);
-    // Explicitly set to exactly 87 as specified in hackathon guidelines
     const targetScore = 87;
 
     const incident = this.createIncident({

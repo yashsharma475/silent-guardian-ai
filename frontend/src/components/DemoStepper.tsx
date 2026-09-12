@@ -46,7 +46,7 @@ export const DemoStepper: React.FC<DemoStepperProps> = ({
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
     if (isRunning && activeStep < 17) {
       timer = setTimeout(async () => {
         const next = activeStep + 1;
